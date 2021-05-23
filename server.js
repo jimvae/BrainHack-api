@@ -1,9 +1,10 @@
 import express from 'express';
 import bcrypt from 'bcrypt-nodejs';
-
+import cors from 'cors';
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 const database = {
     users: [
@@ -39,19 +40,19 @@ app.get('/', (req, res) => {
 })
 
 app.post('/signin', (req, res) => {
-    bcrypt.compare("cookies", '$2a$10$sjODrZ48H/qV6/yGos9lsOftqpLoJSnGGHc0grNlJWw2W82ZVbW0q', function(err, res) {
-    console.log('first guess', res)
-    });
+    // bcrypt.compare("cookies", '$2a$10$sjODrZ48H/qV6/yGos9lsOftqpLoJSnGGHc0grNlJWw2W82ZVbW0q', function(err, res) {
+    // console.log('first guess', res)
+    // });
 
-    bcrypt.compare("veggies", '$2a$10$sjODrZ48H/qV6/yGos9lsOftqpLoJSnGGHc0grNlJWw2W82ZVbW0q', function(err, res) {
-        console.log('second guess', res)
-    });
+    // bcrypt.compare("veggies", '$2a$10$sjODrZ48H/qV6/yGos9lsOftqpLoJSnGGHc0grNlJWw2W82ZVbW0q', function(err, res) {
+    //     console.log('second guess', res)
+    // });
 
 
     // console.log('log', req.body.email);
     if (req.body.email === database.users[0].email &&
         req.body.password === database.users[0].password) {
-         res.json('success');   
+         res.json(database.users[0]);   
     } else {
         res.status(400).json('error logging in');
     }
@@ -99,7 +100,7 @@ app.put('/image', (req, res) => {
         if (user.id === id) {
             user.entries++;
             found = true;
-            return res.json(`updated, new count: ${user.entries}`);
+            return res.json(user.entries);
         }
     });
     if (!found) {
