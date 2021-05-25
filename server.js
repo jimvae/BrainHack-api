@@ -28,7 +28,7 @@ const db = knex({
 app.listen(process.env.PORT || 3000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
 })
-
+app.get('/', (req, res) => { res.send('it is working')});
 app.post('/signin', handleSignin(db, bcrypt));
 // you can improve this by memoization and need to change the controller file
 app.post('/register', (req, res) => handleRegister(req, res, db, bcrypt));
