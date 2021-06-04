@@ -2,6 +2,8 @@ import Clarifai from 'clarifai';
 
 const app = new Clarifai.App({
     apiKey: "3d89fc08bddf4b4aa89fb9819ac11a1a",
+    // apiKey: process.env.API_CLARIFAI
+    // can store variables in heroku to use this ^
    });
 
 const handleAPICall = (req, res) => {

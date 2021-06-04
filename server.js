@@ -7,23 +7,12 @@ import handleRegister from './controllers/register.js';
 import handleSignin from './controllers/signin.js';
 import handleProfileGet from './controllers/profile.js';
 import { handleAPICall, handleImage} from './controllers/image.js';
-
+import { connectionString } from './control.js';
 
 app.use(express.json());
 app.use(cors());
 
-const db = knex({
-    // connecting to database
-    client: 'pg',
-    // pg for postgresql
-    connection: {
-      connectionString : process.env.DATABASE_URL,
-    //   same as local host
-    ssl: {
-        rejectUnauthorized: false,
-        },
-    }
-  });
+const db = knex(connectionString);
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
